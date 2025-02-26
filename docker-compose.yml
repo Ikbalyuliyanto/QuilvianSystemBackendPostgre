@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  database:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: sqlserver
+    environment:
+      SA_PASSWORD: "Admin@1234"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+
+  backend:
+    build: .
+    container_name: backend-api
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=mydatabase;User Id=sa;Password=Admin@1234;TrustServerCertificate=True"
+    ports:
+      - "5000:5000"
+    depends_on:
+      - database
