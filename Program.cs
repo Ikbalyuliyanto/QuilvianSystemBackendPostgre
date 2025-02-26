@@ -2,11 +2,17 @@ using Microsoft.EntityFrameworkCore;
 using QuilvianSystemBackend.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Mengonfigurasi koneksi PostgreSQL
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Add services to the container.
+
+
+// Mengonfigurasi koneksi SQL
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//{
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+//});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
