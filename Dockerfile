@@ -1,17 +1,12 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
+# Menggunakan image SDK .NET Core untuk membangun aplikasi
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /app
-
-# Copy semua file dan restore dependencies
-COPY *.csproj ./
+COPY . . 
 RUN dotnet restore
-
-# Copy semua kode sumber
-COPY . ./
 RUN dotnet publish -c Release -o out
 
-# Gunakan ASP.NET Runtime untuk menjalankan aplikasi
+# Menggunakan image runtime untuk menjalankan aplikasi
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
-COPY --from=build-env /app/out .
-
-ENTRYPOINT ["dotnet", "QuilvianSystemBackendDev.dll"]
+COPY --from=build /app/out . 
+ENTRYPOINT ["dotnet", "QuilvianSystemBackend.dll"]
