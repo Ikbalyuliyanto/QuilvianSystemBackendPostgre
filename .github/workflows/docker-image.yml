@@ -3,7 +3,7 @@ name: Build and Push Docker image to Docker Hub
 on:
   push:
     branches:
-      - main  # Workflow ini akan berjalan setiap ada perubahan di branch 'main'
+      - master  # Workflow ini akan berjalan setiap ada perubahan di branch 'main'
 
 jobs:
   build:
