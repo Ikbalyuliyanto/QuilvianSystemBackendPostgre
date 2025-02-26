@@ -3,11 +3,6 @@ using QuilvianSystemBackend.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Mengonfigurasi koneksi SQL
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//{
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-//});
 // Mengonfigurasi koneksi PostgreSQL
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
