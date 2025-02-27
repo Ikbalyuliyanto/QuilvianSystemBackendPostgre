@@ -64,6 +64,35 @@ namespace QuilvianSystemBackendDev.Areas.ManajemenKesehatan.MasterData.Controlle
             });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddAgama([FromBody] Agama newAgama)
+        {
+            if (newAgama == null)
+            {
+                return BadRequest(new { message = "Data tidak boleh kosong" });
+            }
+
+            // Validasi data yang diterima (misalnya NamaAgama tidak boleh kosong)
+            if (string.IsNullOrEmpty(newAgama.NamaAgama))
+            {
+                return BadRequest(new { message = "Nama Agama tidak boleh kosong" });
+            }
+
+            // Menambahkan data Agama ke dalam database
+            _applicationDbContext.Agamas.Add(newAgama);
+
+            // Menyimpan perubahan ke dalam database
+            await _applicationDbContext.SaveChangesAsync();
+
+            // Mengembalikan respons sukses jika berhasil menambah data
+            return CreatedAtAction(nameof(GetAllAgama), new { id = newAgama.AgamaId }, new
+            {
+                message = "Berhasil menambahkan Agama",
+                data = newAgama
+            });
+        }
+
+
         //[HttpPost]
         //public async Task<IActionResult> CreateAgama([FromForm] AgamaViewModel vm)
         //{
