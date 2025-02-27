@@ -91,8 +91,7 @@ namespace QuilvianSystemBackendDev.Areas.ManajemenKesehatan.MasterData.Controlle
                 data = newAgama
             });
         }
-
-
+//tes
         //[HttpPost]
         //public async Task<IActionResult> CreateAgama([FromForm] AgamaViewModel vm)
         //{
