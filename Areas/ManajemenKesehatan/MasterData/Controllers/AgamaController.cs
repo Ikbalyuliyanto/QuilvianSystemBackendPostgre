@@ -47,22 +47,7 @@ namespace QuilvianSystemBackendDev.Areas.ManajemenKesehatan.MasterData.Controlle
                 data = listdata
             });
         }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetAgamaById(Guid id)
-        {
-            var listdata = _applicationDbContext.Agamas.Find(id);
-            if (listdata == null)
-            {
-                return NotFound(new { message = "Data tidak ditemukan." });
-            }
-
-            return Ok(new
-            {
-                message = "Ditemukan || 200 OK",
-                data = listdata
-            });
-        }
+        
 
         //[HttpPost]
         //public async Task<IActionResult> CreateAgama([FromForm] AgamaViewModel vm)
