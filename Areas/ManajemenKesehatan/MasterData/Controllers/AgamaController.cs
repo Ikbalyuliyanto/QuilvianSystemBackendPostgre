@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using QuilvianSystemBackend.Repositories;
-// Testingh
+
 namespace QuilvianSystemBackendDev.Areas.ManajemenKesehatan.MasterData.Controllers
 {
     [ApiController]
@@ -32,37 +32,37 @@ namespace QuilvianSystemBackendDev.Areas.ManajemenKesehatan.MasterData.Controlle
             _webHostEnvironment = webHostEnvironment;
         }
 
-        // [HttpGet]
-        // public async Task<IActionResult> GetAllAgama()
-        // {
-        //     var listdata = _applicationDbContext.Agamas.ToList();
-        //     if (listdata == null || !listdata.Any())
-        //     {
-        //         return NotFound(new { message = "Belum ada data. || 404 Not Found" });
-        //     }
-
-        //     return Ok(new
-        //     {
-        //         message = "Berhasil || 200 OK",
-        //         data = listdata
-        //     });
-        // }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetAgamaById(Guid id)
+        [HttpGet]
+        public async Task<IActionResult> GetAllAgama()
         {
-            var listdata = _applicationDbContext.Agamas.Find(id);
-            if (listdata == null)
+            var listdata = _applicationDbContext.Agamas.ToList();
+            if (listdata == null || !listdata.Any())
             {
-                return NotFound(new { message = "Data tidak ditemukan." });
+                return NotFound(new { message = "Belum ada data. || 404 Not Found" });
             }
 
             return Ok(new
             {
-                message = "Ditemukan || 200 OK",
+                message = "Berhasil || 200 OK",
                 data = listdata
             });
         }
+
+        // [HttpGet("{id}")]
+        // public async Task<IActionResult> GetAgamaById(Guid id)
+        // {
+        //     var listdata = _applicationDbContext.Agamas.Find(id);
+        //     if (listdata == null)
+        //     {
+        //         return NotFound(new { message = "Data tidak ditemukan." });
+        //     }
+
+        //     return Ok(new
+        //     {
+        //         message = "Ditemukan || 200 OK",
+        //         data = listdata
+        //     });
+        // }
 
         [HttpPost]
         public async Task<IActionResult> AddAgama([FromBody] Agama newAgama)
