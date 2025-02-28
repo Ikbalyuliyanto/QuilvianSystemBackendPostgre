@@ -32,21 +32,21 @@ namespace QuilvianSystemBackendDev.Areas.ManajemenKesehatan.MasterData.Controlle
             _webHostEnvironment = webHostEnvironment;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllAgama()
-        {
-            var listdata = _applicationDbContext.Agamas.ToList();
-            if (listdata == null || !listdata.Any())
-            {
-                return NotFound(new { message = "Belum ada data. || 404 Not Found" });
-            }
+        // [HttpGet]
+        // public async Task<IActionResult> GetAllAgama()
+        // {
+        //     var listdata = _applicationDbContext.Agamas.ToList();
+        //     if (listdata == null || !listdata.Any())
+        //     {
+        //         return NotFound(new { message = "Belum ada data. || 404 Not Found" });
+        //     }
 
-            return Ok(new
-            {
-                message = "Berhasil || 200 OK",
-                data = listdata
-            });
-        }
+        //     return Ok(new
+        //     {
+        //         message = "Berhasil || 200 OK",
+        //         data = listdata
+        //     });
+        // }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAgamaById(Guid id)
