@@ -26,11 +26,11 @@ jobs:
           cd ~/QuilvianSystemBackendPostgre
 
           echo "Resetting local changes..."
-          git reset --hard origin/main
+          git reset --hard origin/master
           git clean -fd
 
           echo "Pulling latest changes..."
-          git pull origin main
+          git pull origin master
 
           echo "Restarting Docker containers..."
           docker compose down
