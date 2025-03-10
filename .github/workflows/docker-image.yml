@@ -1,9 +1,8 @@
 name: Deploy New Project
-
 on:
   push:
     branches:
-      - master
+      - master  # Sesuaikan dengan branch utama Anda
 
 jobs:
   deploy:
@@ -22,19 +21,15 @@ jobs:
 
     - name: Deploy to Server
       run: |
-        BRANCH=${GITHUB_REF##*/}  # Ambil nama branch dari push event
-
-        ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << EOF
-          cd ~/NewDockerProject  # Sesuaikan dengan folder proyek Anda
-
-          echo "Using branch: ${BRANCH}"
+        ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+          cd ~/QuilvianSystemBackendPostgre
 
           echo "Resetting local changes..."
-          git reset --hard origin/${BRANCH}
+          git reset --hard origin/master
           git clean -fd
 
           echo "Pulling latest changes..."
-          git pull origin ${BRANCH}
+          git pull origin master
 
           echo "Restarting Docker containers..."
           docker compose down
@@ -45,7 +40,6 @@ jobs:
 
           echo "Deployment completed!"
         EOF
-
 # name: Build and Push Docker image to Docker Hub
 
 # on:
