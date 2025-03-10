@@ -31,15 +31,64 @@ jobs:
           echo "Pulling latest changes..."
           git pull origin master
 
-          echo "Restarting Docker containers..."
-          docker compose down
-          docker compose up --build -d
+          echo "Building new Docker image..."
+          docker build -t quilvian-backend .
 
-          echo "Cleaning up old images..."
+          echo "Stopping and removing old container..."
+          docker stop quilvian-container || true
+          docker rm quilvian-container || true
+
+          echo "Running new container..."
+          docker run -d --name quilvian-container -p 5000:80 quilvian-backend
+
+          echo "Cleaning up unused Docker images..."
           docker system prune -af
 
           echo "Deployment completed!"
         EOF
+
+# name: Deploy New Project
+# on:
+#   push:
+#     branches:
+#       - master  # Sesuaikan dengan branch utama Anda
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout Repository
+#       uses: actions/checkout@v4
+
+#     - name: Setup SSH Connection
+#       run: |
+#         mkdir -p ~/.ssh
+#         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+#         chmod 600 ~/.ssh/id_rsa
+#         ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+
+#     - name: Deploy to Server
+#       run: |
+#         ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+#           cd ~/QuilvianSystemBackendPostgre
+
+#           echo "Resetting local changes..."
+#           git reset --hard origin/master
+#           git clean -fd
+
+#           echo "Pulling latest changes..."
+#           git pull origin master
+
+#           echo "Restarting Docker containers..."
+#           docker compose down
+#           docker compose up --build -d
+
+#           echo "Cleaning up old images..."
+#           docker system prune -af
+
+#           echo "Deployment completed!"
+#         EOF
 # name: Build and Push Docker image to Docker Hub
 
 # on:
