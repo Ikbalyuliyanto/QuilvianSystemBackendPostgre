@@ -48,21 +48,21 @@ namespace QuilvianSystemBackendDev.Areas.ManajemenKesehatan.MasterData.Controlle
             });
         }
 
-        // [HttpGet("{id}")]
-        // public async Task<IActionResult> GetAgamaById(Guid id)
-        // {
-        //     var listdata = _applicationDbContext.Agamas.Find(id);
-        //     if (listdata == null)
-        //     {
-        //         return NotFound(new { message = "Data tidak ditemukan." });
-        //     }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAgamaById(Guid id)
+        {
+            var listdata = _applicationDbContext.Agamas.Find(id);
+            if (listdata == null)
+            {
+                return NotFound(new { message = "Data tidak ditemukan." });
+            }
 
-        //     return Ok(new
-        //     {
-        //         message = "Ditemukan || 200 OK",
-        //         data = listdata
-        //     });
-        // }
+            return Ok(new
+            {
+                message = "Ditemukan || 200 OK",
+                data = listdata
+            });
+        }
 
         [HttpPost]
         public async Task<IActionResult> AddAgama([FromBody] Agama newAgama)
