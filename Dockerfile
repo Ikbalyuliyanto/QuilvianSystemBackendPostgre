@@ -1,4 +1,4 @@
-# Use the official .NET SDK image ada ikbal di sini
+# Use the official .NET SDK image kang di hapus yak
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 
 # Set the working directory inside the container
